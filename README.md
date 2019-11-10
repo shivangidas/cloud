@@ -1,4 +1,4 @@
-## installing docker on Mac
+## Installing docker on Mac
 
 from https://runnable.com/docker/install-docker-on-macos
 
@@ -9,4 +9,18 @@ from https://runnable.com/docker/install-docker-on-macos
 - The whale in your status bar indicates Docker is running and accessible.
 - Docker presents some information on completing common tasks and links to the documentation.
 - You can access settings and other options from the whale in the status bar. 
+
+### Run rabbitmq
+
+docker run --rm --name rabbit --env RABBITMQ_DEFAULT_USER=admin --env RABBITMQ_DEFAULT_PASS=mypass rabbitmq:latest
+
+### Link and start a worker 
+
+docker run --link rabbit -v $(pwd):/app worker
+
+### Run the code
+
+docker exec -i -t <worker_name> /bin/bash
+
+python -m container_app.submit_jobs
 

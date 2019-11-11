@@ -14,6 +14,11 @@ from https://runnable.com/docker/install-docker-on-macos
 
 docker run --rm --name rabbit --env RABBITMQ_DEFAULT_USER=admin --env RABBITMQ_DEFAULT_PASS=mypass rabbitmq:latest
 
+
+### build worker (make sure you're in the project path)
+
+docker build . -t worker
+
 ### Link and start a worker 
 
 docker run --link rabbit -v $(pwd):/app worker
@@ -23,4 +28,5 @@ docker run --link rabbit -v $(pwd):/app worker
 docker exec -i -t <worker_name> /bin/bash
 
 python -m container_app.submit_jobs
+
 

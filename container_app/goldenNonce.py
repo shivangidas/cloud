@@ -1,10 +1,10 @@
 import hashlib
-import datetime
+# import datetime
 
 from .sellerie import app
 
 
-@app.Nonce
+@app.task
 # def findNonce(start, end):
     # for i in range(start, end):
     #     prefix = "0" * i
@@ -19,22 +19,23 @@ def goldenEgg(Nonce = 0, data ="COMSM0010cloud", prefix= "0000", start=0, end=10
     prefLength = len(prefix)
     flag = 0
     hashValue = ""
-    start = datetime.datetime.now()
+    #startTime = datetime.datetime.now()
     #while flag == 0:
     for i in range(start, end):
         z = str(Nonce) + data #need prev hash and rest of the block
         hashValue = hashlib.sha256(z.encode()).hexdigest()
         if hashValue[:prefLength] == prefix:
             flag = 1
+            break
         Nonce += 1
-    end = datetime.datetime.now()
-    timeSpent = end - start
-    if (flag = 0):
-        return 0, 0, timeSpent
+    #endTime = datetime.datetime.now()
+    #timeSpent = endTime - startTime
+    if (flag == 0):
+        return 0
     else:
         print ("prefix : ", prefix)
         print ("Nonce : ", Nonce)
         print ("Hash Value : ", hashValue)
-        print ("Time spent : ", timeSpent)
+       # print ("Time spent : ", timeSpent)
         print ("\n")
-        return Nonce , hashValue, timeSpent
+        return Nonce

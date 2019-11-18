@@ -5,11 +5,11 @@ from container_app.goldenNonce import goldenEgg
 if __name__ == '__main__':
     start_time = time.time()
     for i in range(100):
-        result = goldenEgg.delay(i*1000, "COMSM0010cloud", "0000", i*1000, i*1000 + 1000)
-        print (f'golden nonce {i}: ')
-        print (result.children)
+        result = goldenEgg.delay(
+            i*1000, "COMSM0010cloud", "0000", i*1000, i*1000 + 1000)
+        print(f'golden nonce {i}: ')
+        print(result.children)
 
-        
     #print(f'golden Nonce: {GN}')
 
     result_output = result.wait(timeout=None, interval=0.5)

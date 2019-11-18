@@ -6,9 +6,9 @@ from celery.result import AsyncResult
 
 
 @app.task
-def goldenEgg(Nonce=0, data="COMSM0010cloud", difficulty=4, start=0, end=10000):
+def goldenEgg(Nonce=0, data="COMSM0010cloud", difficulty=4, end=10000):
     # convert to binary
-    # data = ' '.join(format(ord(x), 'b') for x in data)
+    #data = ' '.join(format(ord(x), 'b') for x in data)
     #print(f"Run {start} {end}")
     prefix = "0" * difficulty
     prefLength = difficulty
@@ -16,7 +16,8 @@ def goldenEgg(Nonce=0, data="COMSM0010cloud", difficulty=4, start=0, end=10000):
     hashValue = ""
     startTime = datetime.datetime.now()
     # while flag == 0:
-    for i in range(start, end+1):
+    # for i in range(start, end+1):
+    while Nonce <= end:
         z = str(Nonce) + data
         hashValue = hashlib.sha256(z.encode()).hexdigest()
         if hashValue[:prefLength] == prefix:

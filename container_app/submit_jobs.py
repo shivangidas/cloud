@@ -43,13 +43,13 @@ if __name__ == '__main__':
         for i in range(0, numberOfTasksInParallel):
             startNonceValue = startNonce + i * hashes_per_task
             endNonceValue = startNonce + i * hashes_per_task + hashes_per_task
-            print(f"Task {i} starting at {startNonceValue}")
+            #print(f"Task {i} starting at {startNonceValue}")
             tasks.append(goldenEgg.delay(
                 startNonceValue, data, difficulty, endNonceValue))
 
         goldenNonce = 0
         tasks_backup = tasks
-        print(f"Round {round_no} end at : {endNonceValue}")
+        #print(f"Round {round_no} end at : {endNonceValue}")
         while len(tasks) > 0:
             completed_tasks = []
             for task in tasks:
@@ -68,21 +68,22 @@ if __name__ == '__main__':
                     revoke(task.id, terminate=True)
                     # print(f"After revoke, the task {task.id} : {task.state}")
                 tasks = []
+                break
             else:
                 # remove completed tasks
                 tasks = list(set(tasks) - set(completed_tasks))
-        if flag == 0:
-            print(
-                f"Couldn't get Nonce below {endNonceValue} \n")
-        else:
-            # data = ' '.join(format(ord(x), 'b') for x in data)
+        if flag == 1:
+            time_taken = time.time() - start_time
             hashValue = hashlib.sha256(
                 (str(goldenNonce) + data).encode()).hexdigest()
             print(f"Hash Value : {hashValue}")
-            print(f"We got a Nonce: {goldenNonce} for difficulty {difficulty}")
+            print(
+                f"We got a Nonce: {goldenNonce} for difficulty {difficulty} in {time_taken} seconds\n")
             break
+        # else:
+        #     print(f"Couldn't get Nonce below {endNonceValue} \n")
         if ((time.time() - start_time) > int(timeGivenByUser)):
-            print("Time exceeded")
+            print(f"Time exceeded. Checked till {endNonceValue}")
             break
     elapsed_time = time.time() - start_time
     print(f"elapsed time: {elapsed_time}")

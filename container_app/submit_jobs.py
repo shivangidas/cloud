@@ -7,6 +7,7 @@ from container_app.goldenNonce import goldenEgg
 
 if __name__ == '__main__':
     data = "COMSM0010cloud"
+    data = ''.join(format(ord(x), 'b') for x in data)
     start_time = time.time()
     max_difficulty = 15
     difficulty = 4

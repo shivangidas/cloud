@@ -48,14 +48,14 @@ if __name__ == '__main__':
                 startNonceValue, data, difficulty, endNonceValue))
 
         goldenNonce = 0
-        tasks_backup = tasks
+        #tasks_backup = tasks
         #print(f"Round {round_no} end at : {endNonceValue}")
         while len(tasks) > 0:
             completed_tasks = []
             for task in tasks:
                 if task.ready():
                     completed_tasks.append(task)
-                    if task.get() != 0:
+                    if task.get() != -1:
                         goldenNonce = task.get()
                         flag = 1
                         # https://stackoverflow.com/questions/7149074/deleting-all-pending-tasks-in-celery-rabbitmq

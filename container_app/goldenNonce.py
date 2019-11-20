@@ -15,6 +15,6 @@ def goldenEgg(Nonce=0, data="COMSM0010cloud", difficulty=4, end=10000):
             break
         Nonce += 1
     if (flag == 0):
-        return 0
+        return -1
     else:
         return Nonce

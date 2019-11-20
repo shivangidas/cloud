@@ -34,4 +34,8 @@ docker ps
 
 ## kill containers
 
-docker kill vigorous_haslett
+<pre>docker kill vigorous_haslett</pre>
+
+Remove all stopped containers
+
+<pre>docker rm $(docker ps -a -q)</pre>

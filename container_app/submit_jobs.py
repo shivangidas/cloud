@@ -34,11 +34,11 @@ if __name__ == '__main__':
             print(f"Using {numberOfTasksInParallel} tasks\n")
     flag = 0
     endNonceValue = 0
-    round_no = 0
+    #round_no = 0
     while (endNonceValue < total_nonce_options):
         tasks = []
         startNonce = endNonceValue
-        round_no += 1
+        #round_no += 1
         #print(f"Round {round_no} starting at : {startNonce}")
         for i in range(0, numberOfTasksInParallel):
             startNonceValue = startNonce + i * hashes_per_task
@@ -72,6 +72,7 @@ if __name__ == '__main__':
             else:
                 # remove completed tasks
                 tasks = list(set(tasks) - set(completed_tasks))
+        app.control.purge()
         if flag == 1:
             time_taken = time.time() - start_time
             hashValue = hashlib.sha256(

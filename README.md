@@ -10,31 +10,53 @@ from https://runnable.com/docker/install-docker-on-macos
 - Docker presents some information on completing common tasks and links to the documentation.
 - You can access settings and other options from the whale in the status bar.
 
-### Run rabbitmq
+## rabbitmq
 
-docker run --rm --name rabbit --env RABBITMQ_DEFAULT_USER=admin --env RABBITMQ_DEFAULT_PASS=mypass rabbitmq:latest
+<pre>docker pull rabbitmq:latest</pre>
 
-### build worker (make sure you're in the project path)
+## Run with docker-compose
 
-docker build . -t worker
+<pre>docker-compose build 
+docker-compose up --scale worker=2</pre>
 
-### Link and start a worker
+## Or manually
+
+- Run rabbitmq
+
+<pre>
+docker run --rm --name rabbit --env RABBITMQ_DEFAULT_USER=admin --env RABBITMQ_DEFAULT_PASS=mypass rabbitmq:latest</pre>
+
+- build worker (make sure you're in the project path)
+
+<pre>docker build . -t worker</pre>
+
+- Link and start a worker
 
 <pre>docker run --link rabbit -v $(pwd):/app worker</pre>
 
-### Run the code
+## Run the code
 
-docker exec -i -t <worker_name> /bin/bash
+<pre>
+docker exec -i -t < worker_name > /bin/bash
+python -m container_app.submit_jobs</pre>
 
-python -m container_app.submit_jobs
+with arguments
+
+<pre>
+python -m container_app.submit_jobs (difficulty) (time_in_seconds) (number_of_tasks)
+</pre>
 
 ## List things with docker
 
-docker ps
+<pre> docker ps </pre>
 
-## kill containers
+## Kill containers
 
 <pre>docker kill vigorous_haslett</pre>
+
+Kill all
+
+<pre>docker kill $(docker ps -a -q)</pre>
 
 Remove all stopped containers
 
